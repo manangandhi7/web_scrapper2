@@ -21,24 +21,26 @@ def open_page_selenium(url):
 
     browser = webdriver.Chrome()
     browser.get(url)
-    # time.sleep(2)
+    time.sleep(3)
     doc = browser.find_element_by_name('Submit')
     doc.click()
     page_source = browser.page_source
-    # time.sleep(500)
+    time.sleep(1)
     try:
         soup = BeautifulSoup(page_source, 'html.parser')
         print(soup.prettify())
-        # reviews = []
-        # reviews_selector = soup.find_all('div', class_='reviewSelector')
-        # for review_selector in reviews_selector:
-        #     review_div = review_selector.find('div', class_='dyn_full_review')
-        #     if review_div is None:
-        #         review_div = review_selector.find('div', class_='basic_review')
-        #     review = review_div.find('div', class_='entry').find('p').get_text()
-        #     review = review.strip()
-        #     reviews.append(review)
 
+        gdp_table = soup.find("table", attrs={"class": "table-border"})
+        gdp_table_data = gdp_table.tbody.find_all("tr")  # contains 2 rows
+
+        # Get all the headings of Lists
+        headings = []
+        for td in gdp_table_data[0].find_all("td"):
+            # remove any newlines and extra spaces from left and right
+            headings.append(td.text)
+            print(td.text)
+
+        # print(headings)
     except Exception as e:
         print(e)
         browser.quit()
