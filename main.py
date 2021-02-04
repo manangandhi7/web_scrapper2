@@ -1,5 +1,4 @@
 
-
 def open_web_page_bs4(url):
     import requests
     from bs4 import BeautifulSoup
@@ -13,6 +12,7 @@ def open_web_page_bs4(url):
     req = requests.get(url, headers) #, headers
     soup = BeautifulSoup(req.content, 'html.parser')
     print(soup.prettify())
+
 
 def open_page_selenium(url):
     from selenium import webdriver
@@ -44,6 +44,7 @@ def open_page_selenium(url):
     except Exception as e:
         print(e)
         browser.quit()
+
 
 if __name__ == '__main__':
     url = "https://ec.europa.eu/growth/tools-databases/cosing/index.cfm?fuseaction=search.simple"#"http://example.com"
